@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESP32 Relay Control</title>
-    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -36,46 +35,30 @@
             opacity: 0.8;
         }
     </style>
+</head>
+<body>
+
+    <h1>ESP32 Relay Control</h1>
+
+    <button onclick="sendCommand('turn_on')">Turn On Relay</button>
+    <button class="off" onclick="sendCommand('turn_off')">Turn Off Relay</button>
+
     <script>
         function sendCommand(command) {
-            fetch('https://http:/10.0.0.144:80/relay/test', {  // Replace with your actual back-end URL
+            fetch('http://your-esp32-ip-address/command', {  // Replace with your ESP32 IP address
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    customerID: localStorage.getItem('customerID'), // Auto-generated customer ID
                     command: command
                 })
-            }).then(response => {
-                return response.text();
-            }).then(data => {
-                alert("Response from ESP32: " + data);
-            }).catch(error => {
-                console.error('Error:', error);
-            });
-        }
-
-        function generateCustomerID() {
-            return 'customer_' + Math.random().toString(36).substring(2, 15);
-        }
-
-        window.onload = function() {
-            let customerID = localStorage.getItem('customerID');
-            if (!customerID) {
-                customerID = generateCustomerID();
-                localStorage.setItem('customerID', customerID);
-                console.log("New Customer ID Generated: " + customerID);
-            } else {
-                console.log("Existing Customer ID: " + customerID);
-            }
+            }).then(response => response.text())
+            .then(data => alert("Response: " + data))
+            .catch(error => console.error('Error:', error));
         }
     </script>
-</head>
-<body>
-    <h1>Control Your ESP32 Relay</h1>
-    <button onclick="sendCommand('turn_on')">Turn On Relay</button>
-    <button onclick="sendCommand('turn_off')">Turn Off Relay</button>
+
 </body>
 </html>
 
