@@ -1,1 +1,1 @@
-This webpage is just interface for creating the board connection and cellphone
+This webpage is just an interface 
