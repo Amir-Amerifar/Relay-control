@@ -6,7 +6,7 @@
     <title>ESP32 Relay Control</title>
     <script>
         function sendCommand(command) {
-            fetch('https://your-backend-url/command', {  // Replace with your actual back-end URL
+            fetch('https://http:/10.0.0.144:80/relay/test', {  // Replace with your actual back-end URL
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
